@@ -18,8 +18,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView registerClass:[self cellClassAtIndexPath:indexPath] forCellReuseIdentifier:[self cellIdentiferAtIndexPath:indexPath]];
     CDZBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:[self cellIdentiferAtIndexPath:indexPath]];
+    if (!cell) {
+        Class cls = [self cellClassAtIndexPath:indexPath];
+        cell = [[cls alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[self cellIdentiferAtIndexPath:indexPath]];
+    }
     cell.item = [self itemAtIndexPath:indexPath];
     return cell;
 }
@@ -27,11 +30,13 @@
 - (Class)cellClassAtIndexPath:(NSIndexPath *)indexPath{
     CDZTableviewItem *item = [self itemAtIndexPath:indexPath];
     switch (item.type) {
-        case typeA:
+        case typeA:{
             return [CDZTypeACell class];
+        }
             break;
-        case typeB:
+        case typeB:{
             return [CDZTypeBCell class];
+        }
             break;
     }
 }

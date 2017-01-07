@@ -42,6 +42,7 @@
         _tableview = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableview.delegate = self;
         _tableview.dataSource = self.datasource;
+      
     }
     return _tableview;
 }
